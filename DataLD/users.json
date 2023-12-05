@@ -1,0 +1,17 @@
+[
+    {
+        "username": "user_a",
+        "password": "user_aPASSWORD1!",
+        "age": 98,
+        "score": 2,
+        "email": "user_test@email.com",
+        "phone_number": "077777777"
+    },
+    {
+        "username": "user_b",
+        "password": "user_bPASSWORD1!",
+        "age": 37,
+        "score": 5,
+        "phone_number": "077788777"
+    }
+]
