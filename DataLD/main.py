@@ -1,6 +1,7 @@
 import pydantic
 import string
 from typing import Optional
+import json 
 
 class User(pydantic.BaseModel):
     username: str
@@ -9,6 +10,16 @@ class User(pydantic.BaseModel):
     score: float
     email: Optional[str] = None
     phone_number: Optional[str] = None
+    
+    
+    @pydantic.root_validator(pre=True)
+    @classmethod
+    def validate_phone_or_email(cls, values):
+        "@pydantic.root_validator(pre=True) -> Validate prior to initialisation"
+        if "email" in values or "phone_number" in values:
+            return values
+        else:
+            raise ValueError("Either an email or a phone number is required to register a user.")
     
     
     @pydantic.validator("username")
@@ -21,7 +32,7 @@ class User(pydantic.BaseModel):
         """
         print("Username validator called!")
         if any(p in value for p in string.punctuation):
-            raise ValueError("Username must not include punctuation")
+            raise ValueError("Username must not include punctuation.")
         else:
             return value
         
@@ -29,7 +40,6 @@ class User(pydantic.BaseModel):
     @pydantic.validator("password")
     @classmethod
     def username_valid(cls, value):
-        print("Password validator called!")
         if len(value) < 8: 
             raise ValueError("Password must be atleast 8 characters long")
         if any(p in value for p in string.punctuation):
@@ -53,4 +63,8 @@ user1 = User(username="user1", password="aB!12345",
              age=20, score=1, email="myemail@mail.com")
 
 print(user1)
-print(user1.age)
+# print(user1.age)
+
+json_users = [User(**u) for u in json.load(open("DataLD/users.json"))]
+
+print(json_users)
