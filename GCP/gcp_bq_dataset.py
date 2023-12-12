@@ -1,6 +1,8 @@
 from google.cloud import bigquery
 import os 
 
+# gcloud auth application-default login
+
 gcp_project_name = str(os.getenv("GCP_PROJECT_NAME"))
 gcp_bq_dataset = str(os.getenv("GCP_BQ_DS"))
 gcp_column_value = str(os.getenv("GCP_COL"))
