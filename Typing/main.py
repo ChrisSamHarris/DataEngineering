@@ -50,6 +50,12 @@ def foo_3() -> Callable[[int, int], int]:
     
     return func
 
+def factory_func() -> Callable[[int], int]:
+    def add(x: int) -> int:
+        return x + 1
+    
+    return add
+
 
     
 
